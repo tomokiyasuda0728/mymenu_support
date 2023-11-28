@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ingredients extends Model
+class Main extends Model
 {
     use HasFactory;
-    
-    public function mymenus()
+        public function mains()   
     {
-        return $this->belongsToMany(Mymenu::class);
+        return $this->hasMany(Mymenu::class);  
     }
 }

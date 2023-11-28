@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class mymenu extends Model
+class Mymenu extends Model
 {
     use HasFactory;
     
@@ -37,6 +37,11 @@ class mymenu extends Model
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class);
+    }
+    
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
     }
 
 
