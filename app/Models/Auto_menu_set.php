@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class mainfood extends Model
+class Auto_menu_set extends Model
 {
     use HasFactory;
     
-        public function mainfoods()   
+         public function user()   
     {
-        return $this->hasMany(Mainfood::class);  
+        return $this->belongsTo(User::class);  
     }
 }

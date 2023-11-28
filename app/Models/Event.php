@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class type extends Model
+class Event extends Model
 {
     use HasFactory;
     
@@ -13,4 +13,10 @@ class type extends Model
     {
         return $this->hasMany(Mymenu::class);  
     }
+    
+    public function getByMymenu()
+    {
+        return $this->with('mymenus')->orderBy('updated_at', 'DESC');
+    }
+    
 }

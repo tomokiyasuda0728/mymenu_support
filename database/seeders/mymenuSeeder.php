@@ -24,6 +24,7 @@ class mymenuSeeder extends Seeder
                 'user_id' => 1,
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
+                'event_id' => null,
         ]);
     }
 }
