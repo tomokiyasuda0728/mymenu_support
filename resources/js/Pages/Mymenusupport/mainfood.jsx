@@ -3,8 +3,9 @@ import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link } from '@inertiajs/react'
 
 
-function Type(props){
-    const { types } = props;
+function Mainfood(props){
+    const { mainfoods } = props;
+  
     
     return(
         <Authenticated auth={props.auth} header={
@@ -34,16 +35,16 @@ function Type(props){
                     </div>
                 </div>
             </div>
-            <div className="p-12">
-            { types.mymenus.map((mymenu) => (
+             <div className="p-12">
+                { mainfoods.mymenus.map((mymenu) => (
                 <div key={mymenu.id}>
                     <h2>{mymenu.title}</h2>
                     <img src='./menu_images/{mymenu.title}.png'/>
                 </div>
-                 ))}
+                ))}
             </div>
             
         </Authenticated>
         );
 }
-export default Type;
+export default Mainfood;

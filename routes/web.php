@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AutoMenuSetController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\IngredientsController;
-use App\Http\Controllers\MainController;
+use App\Http\Controllers\IngredientController;
+use App\Http\Controllers\DishController;
 use App\Http\Controllers\MainfoodController;
 use App\Http\Controllers\MymenuController;
 use App\Http\Controllers\SetmenuController;
@@ -50,8 +50,16 @@ Route::group(["middleware" => ["auth"]], function() {
 
    Route::get("/home", [EventController::class, "show"]);
    
+   
+   Route::get("/post/{mymenu}", [MymenuController::class, "postindex"]);
    Route::get("/post", [MymenuController::class, "post"]);
    
+   Route::get("/create", [MymenuController::class, "create"]);
+   
    Route::get('/type/{type}', [TypeController::class,'post']);
-
+   Route::get('/dish/{dish}', [DishController::class,'post']);
+   Route::get('/mainfood/{mainfood}', [MainfoodController::class,'post']);
+   
+   Route::post("/create", [MymenuController::class, "store"]);
+   Route::post("/addposts", [IngredientController::class, "addstore"]);
 });
