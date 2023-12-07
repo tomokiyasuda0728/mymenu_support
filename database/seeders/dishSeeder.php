@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 
-class mainSeeder extends Seeder
+class dishSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,19 +16,19 @@ class mainSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('mains')->insert([
+        DB::table('dishes')->insert([
                 'name' => '指定なし',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
         ]);
         
-        DB::table('mains')->insert([
+        DB::table('dishes')->insert([
                 'name' => '主菜',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),
         ]);
         
-        DB::table('mains')->insert([
+        DB::table('dishes')->insert([
                 'name' => '副菜',
                 'created_at' => new DateTime(),
                 'updated_at' => new DateTime(),

@@ -18,7 +18,24 @@ class ingredientSeeder extends Seeder
     {
         DB::table('ingredients')->insert([
                 'name' => '人参',
-                'quantity' => '3',
+                'created_at' => new DateTime,
+                'updated_at' => new DateTime,
+            ]);
+            
+        DB::table('ingredients')->insert([
+                'name' => 'ジャガイモ',
+                'created_at' => new DateTime,
+                'updated_at' => new DateTime,
+            ]);
+            
+        DB::table('ingredients')->insert([
+                'name' => '玉葱',
+                'created_at' => new DateTime,
+                'updated_at' => new DateTime,
+            ]);
+            
+        DB::table('ingredients')->insert([
+                'name' => '牛肉',
                 'created_at' => new DateTime,
                 'updated_at' => new DateTime,
             ]);

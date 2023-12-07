@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     $this->call(auto_menu_setSeeder::class);
     $this->call(ingredientSeeder::class);
     $this->call(mainfoodSeeder::class);
-    $this->call(mainSeeder::class);
+    $this->call(dishSeeder::class);
     $this->call(typeSeeder::class);
     $this->call(mymenuSeeder::class);
     $this->call(setmenuSeeder::class);

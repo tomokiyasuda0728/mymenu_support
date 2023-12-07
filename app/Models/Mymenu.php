@@ -24,9 +24,9 @@ class Mymenu extends Model
         return $this->belongsTo(Mainfood::class);
     }
     
-    public function main()
+    public function dish()
     {
-        return $this->belongsTo(Main::class);
+        return $this->belongsTo(Dish::class);
     }
     
     public function setmenus()
@@ -36,13 +36,22 @@ class Mymenu extends Model
     
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class)->withPivot('quantity');
     }
     
     public function event()
     {
         return $this->belongsTo(Event::class);
     }
+    
+    protected $fillable = [
+        "title",
+        "photograph",
+        "way_of_making",
+        "comment",
+        "ingredient",
+        "quantity",
+    ];
 
 
 }

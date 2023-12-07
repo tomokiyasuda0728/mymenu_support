@@ -5,11 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Main extends Model
+class Ingredient extends Model
 {
     use HasFactory;
-        public function mains()   
+    
+    public function mymenus()
     {
-        return $this->hasMany(Mymenu::class);  
+        return $this->belongsToMany(Mymenu::class)->withPivot('quantity');
     }
 }

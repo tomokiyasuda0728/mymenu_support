@@ -9,8 +9,13 @@ class Mainfood extends Model
 {
     use HasFactory;
     
-        public function mainfoods()   
+        public function mymenus()   
     {
         return $this->hasMany(Mymenu::class);  
+    }
+    
+         public function getByMainfood(int $limit_count = 5)
+    {
+         return $this->mymenus()->with('mainfood')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
 }

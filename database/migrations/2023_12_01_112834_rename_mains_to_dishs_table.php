@@ -13,9 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('mymenus', function (Blueprint $table) {
-             $table->foreignId('event_id')->constrained('events')->onDelete('cascade')->nullable();   
-        });
+        Schema::rename('mains', 'dishes');
     }
 
     /**
@@ -25,8 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('mymenus', function (Blueprint $table) {
-            //
-        });
+        Schema::rename('dishes','mains');
     }
 };
