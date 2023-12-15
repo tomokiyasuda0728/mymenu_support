@@ -10,6 +10,7 @@ use App\Models\Dish;
 use App\Models\Mainfood;
 use App\Models\Ingredient;
 use App\Http\Requests\PostRequest;
+use Storage;
 
 class MymenuController extends Controller
 {
@@ -33,12 +34,18 @@ class MymenuController extends Controller
         return Inertia::render("Mymenusupport/create",with(["type"=>$type->get(), "dish"=>$dish->get(), "mainfood"=>$mainfood->get(), "ingredient"=>$ingredient->get()]));
     }
     
+    public function autodetail(Mymenu $mymenu)
+    {
+        return Inertia::render("Mymenusupport/autodetail",["mymenus" => $mymenu->get()]);
+    }
+    
     public function store(Mymenu $mymenu, PostRequest $request)
     {
-            dd($request->ingredient_id[1]);
             $input = $request->all();
             $mymenu->title = $input["title"];
-            $mymenu->photograph = $input["photograph"];
+            $image = $input["photograph"];
+            $path = Storage::disk('s3')->putFile('myprefix', $image, 'public');
+            $mymenu->photograph = Storage::disk('s3')->url($path);
             $mymenu->type_id = $input["type_id"];
             $mymenu->mainfood_id = $input["mainfood_id"];
             $mymenu->dish_id = $input["dish_id"];
@@ -48,14 +55,58 @@ class MymenuController extends Controller
             $mymenu->user_id = $input["user_id"];
             $mymenu->save();
             
-        
-            if(!empty($input->ingredient_id)){
-            foreach ($input->ingredient_id as $ingredient_id)
-                foreach ($input->quantity as $quantity)
-                  auth()->mymenu()->ingredients()->attach($ingredient_id, ['quantity' => $quantity]);
+            
+            if(!empty($input["ingredient_quantity"])){
+                foreach ($input["ingredient_quantity"] as $ingredient)
+                    $mymenu->ingredients()->attach($ingredient["id"], ['quantity' => $ingredient["quantity"]]);
+                    
             }
         
         return redirect("/post");
     }
     
+    public function edit(Mymenu $mymenu, Type $type, Dish $dish, Mainfood $mainfood, Ingredient $ingredient)
+    {
+        return Inertia::render("Mymenusupport/edit",with(["mymenus" => $mymenu->load('type', 'dish', 'mainfood', 'ingredients'), "type"=>$type->get(), "dish"=>$dish->get(), "mainfood"=>$mainfood->get(), "ingredient"=>$ingredient->get()]));
+    }
+    
+    
+    public function update(Mymenu $mymenu, Request $request)
+    {
+        
+        $input = $request->all();
+        $mymenu->id = $input["id"];
+        $mymenu->title = $input["title"];
+        if(!empty($input["photograph"])){
+        $image = $input["photograph"];
+        $path = Storage::disk('s3')->putFile('myprefix', $image, 'public');
+        $mymenu->photograph = Storage::disk('s3')->url($path);
+        };
+        $mymenu->type_id = $input["type_id"];
+        $mymenu->mainfood_id = $input["mainfood_id"];
+        $mymenu->dish_id = $input["dish_id"];
+        $mymenu->way_of_making = $input["way_of_making"];
+        $mymenu->comment = $input["comment"];
+        $mymenu->type_id = $input["type_id"];
+        $mymenu->user_id = $input["user_id"];
+        $mymenu->save();
+            
+            
+            if(!empty($input["ingredient_quantity"])){
+                foreach ($input["oldingredient_quantity"] as $ingredient)
+                    $mymenu->ingredients()->detach($ingredient["id"]);
+                
+                foreach ($input["ingredient_quantity"] as $ingredient)
+                    $mymenu->ingredients()->attach($ingredient["id"], ['quantity' => $ingredient["quantity"]]);
+            }else{
+                foreach ($input["oldingredient_quantity"] as $ingredient)
+                    $mymenu->ingredients()->detach($ingredient["id"]);
+            }
+    return redirect("/post");
+    }
+    
+    public function delete(Mymenu $mymenu){
+        $mymenu->delete();
+        return redirect("/post");
+    }
 }

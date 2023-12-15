@@ -1,10 +1,16 @@
 import React from "react";
 import Authenticated from "@/Layouts/AuthenticatedLayout";
-import { Link } from '@inertiajs/react'
+import { Link, router } from '@inertiajs/react'
 
 
 function Index(props){
     const { mymenus } = props;
+    
+    const handleDeletePost = (id) => {
+        router.delete(`/post/${id}`, {
+            onBefore: () => confirm("本当に削除しますか？"),
+        })
+    }
     
     return(
         <Authenticated auth={props.auth} header={
@@ -16,14 +22,16 @@ function Index(props){
                 <div className="flex flex-row">
                     <h1>{mymenus.title}</h1>
                     <div className="flex flex-row my-5">
-                        <button className="menuEdit">編集</button>
-                        <button className="menuDelete">削除</button>
+                        <Link href={`/post/${mymenus.id}/edit`}>編集</Link>
+                        <div>
+                            <input type="button" value="削除" onClick={() => handleDeletePost(mymenus.id)}/>
+                        </div>
                         <button className="menuIsolate">自動献立の対象から外す</button>
                     </div>
                 </div>
                 
                 <div>
-                    <img src='./menu_images/{mymenu.title}.png'/>
+                    <img src={ mymenus.photograph }/>
                 </div>
                 
                 <div>
@@ -38,10 +46,9 @@ function Index(props){
                 <div className="box-border h-30 w-100 p-4 border-2 border-gray-900">
                     <h2>材料</h2>
                     { mymenus.ingredients.map((ingredient) => (
-                        
                         <div key={ingredient.id}>
                             <h2 className="box-border h-30 w-100 p-4 border-2 border-gray-900">
-                            {ingredient.name}×{ingredient.pivot.quantiny}
+                            {ingredient.name}×{ingredient.pivot.quantity}
                             </h2>
                         </div>
                     ))}

@@ -39,7 +39,7 @@ function Dish(props){
                { dishes.mymenus.map((mymenu) => (
                 <div key={mymenu.id}>
                     <h2>{mymenu.title}</h2>
-                    <img src='./menu_images/{mymenu.title}.png'/>
+                    <img src={ mymenu.photograph }/>
                 </div>
                 ))}
             </div>

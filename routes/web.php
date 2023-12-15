@@ -53,8 +53,15 @@ Route::group(["middleware" => ["auth"]], function() {
    
    Route::get("/post/{mymenu}", [MymenuController::class, "postindex"]);
    Route::get("/post", [MymenuController::class, "post"]);
+   Route::get("/post/{mymenu}/edit", [MymenuController::class, "edit"]);
+   
+   Route::post('/post/{mymenu}/edit', [MymenuController::class, "update"]);
+   
+   Route::delete("/post/{mymenu}", [MymenuController::class, "delete"]);
    
    Route::get("/create", [MymenuController::class, "create"]);
+   
+   Route::get("/autodetail", [MymenuController::class, "autodetail"]);
    
    Route::get('/type/{type}', [TypeController::class,'post']);
    Route::get('/dish/{dish}', [DishController::class,'post']);

@@ -6,6 +6,7 @@ import { Calendar } from "@fullcalendar/core";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { format } from 'date-fns'
+import { Link } from '@inertiajs/react'
 
 
 function Home(props){
@@ -24,7 +25,7 @@ function Home(props){
         <div className="flex flex-row justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900" >
             <div>自動献立表</div>
             <div></div>
-            <div>献立一覧</div>
+            <Link href={`/post`}>献立一覧</Link>
         </div>
         </div>
         </div>

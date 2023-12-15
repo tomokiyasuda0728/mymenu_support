@@ -2,27 +2,50 @@ import { useState, useRef } from 'react';
 import Authenticated from "@/Layouts/AuthenticatedLayout";
 import { Link, useForm} from '@inertiajs/react'
 
-const Create = (props) => {
+const Edit = (props) => {
     
     const csrf_token = document.head.querySelector('meta[name="csrf-token"]');
     
     const {data, setData, post} = useForm({
-        title:"",
+        id:props.mymenus.id,
+        title:props.mymenus.title,
+        oldphotograph:props.mymenus.photograph,
         photograph:"",
-        type_id:1,
-        mainfood_id:1,
-        dish_id:1,
-        way_of_making:"",
-        comment:"",
+        type_id:props.mymenus.type_id,
+        mainfood_id:props.mymenus.mainfood_id,
+        dish_id:props.mymenus.dish_id,
+        way_of_making:props.mymenus.way_of_making,
+        comment:props.mymenus.comment,
+        oldingredient_quantity:[],
         ingredient_quantity:[],
-        user_id:props.auth.user.id,
-    })
+        user_id:props.mymenus.user_id,
+    });
     
-    const [count, setCount] = useState(5);
+    const ingerdient_quantityset = () =>{
+        let bringingredient = (props.mymenus.ingredients);
+        for(let i=0; i<bringingredient.length; i++){
+            ingredients.push({
+                index:i,
+                id:bringingredient[i].id,
+                name:bringingredient[i].name,
+                quantity:bringingredient[i].pivot.quantity,
+            });
+        }
+         if(data.ingredient_quantity.length == 0){
+        setData("ingredient_quantity", ingredients);
+        };
+        if(data.oldingredient_quantity.length == 0){
+        setData("oldingredient_quantity", ingredients);
+        };
+    {console.log(ingredients)}
+    };
+    
+     const [count, setCount] = useState(0);
     
     const handleSendPosts = (e) => {
+        console.log(e)
         e.preventDefault();
-        post("/create");
+        post(`/post/${props.mymenus.id}/edit`);
     };
     
     const [ingrededit, setIngrededit] = useState(true);
@@ -73,9 +96,37 @@ const Create = (props) => {
         if (ingredient === null) return
         ingredient['quantity'] = quantity;
     }
-
+    
     const renderOptions = () => {
         let elems = [];
+        {ingredients.map((ingredient,i) => (
+            elems.push(
+            <div>
+                <select onChange={(e) =>handleIngredientName(i,e)}>
+                <option value="" selected hidden>{ingredient.name}</option>
+                <option value="">未選択</option>
+                {
+                list.map((ct)=>
+                    <option value={ct.id}>{ct.name}</option>
+                )
+                }
+                </select>
+                <p>×</p>
+                <input 
+                type="number" 
+                min={0}
+                placeholder={ingredient.quantity}
+                onChange={(e) => 
+                    handleIngredientQuantity(
+                        i,
+                        e
+                    )}
+                />
+            </div>
+
+            )
+        ))}
+        
         for (let i = 0; i < count; i++) {
             elems.push(
             <div>
@@ -101,13 +152,15 @@ const Create = (props) => {
 
             )
         }
+        
         return <ul>{elems}</ul>;
     }
     
-    const swithingredient = () =>{
+     const swithingredient = () =>{
         if(ingrededit){
             return(
         <div>
+            {ingerdient_quantityset()}
             <input type="button" onClick={() => {
                 setData("ingredient_quantity",ingredients);
                 setIngrededit(false);
@@ -135,18 +188,25 @@ const Create = (props) => {
     )}
     }
     
+    const swithsubmit = () =>{
+        if(ingrededit){
+            return(<h2>食材を確定してください</h2>)
+        }
+    }
+    
     return(
         <Authenticated auth={props.auth} header={
           <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            create
+            edit
           </h2> 
         }>
         <form onSubmit={handleSendPosts}>
+        
             <div>
-                    <input type="hidden" name="_token" value={csrf_token.content}/>
+                <input type="hidden" name="_token" value={csrf_token.content}/>
             <div className="p-12">
                 <div className="flex flex-row">
-                    <input type="text" placeholder="タイトル" onChange={(e) => setData("title", e.target.value)}/>
+                    <input type="text" placeholder="タイトル" value={data.title} onChange={(e) => setData("title", e.target.value)}/>
                     <span className="text-red-600">{props.errors.title}</span>
                     <div className="flex flex-row my-5">
                     <button type="submit" className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md">保存</button>
@@ -154,25 +214,36 @@ const Create = (props) => {
                 </div>
                 
                 <div>
-                    <input type="file" className="image" onChange={(e) => setData("photograph", e.target.files[0])}/>
+                    <div>
+                        <h2>元の画像</h2>
+                        <img src={ props.mymenus.photograph }/>
+                    </div>
+                    <div>
+                        <h2>変更したい画像</h2>
+                        <input type="file" className="image" onChange={(e) => setData("photograph", e.target.files[0])}/>
+                        
+                    </div>
                 </div>
                 
                 <div>
                   <h2>カテゴリー</h2>
                   <div className="flex flex-row my-5">
                     <select onChange={e => setData("type_id", e.target.value)}>
-                    {props.type.map((type) => (
+                   <option value="" selected hidden>{props.mymenus.type.name}</option>
+                   {props.type.map((type) => (
                             <option value={type.id}>{type.name}</option>
                         ))}
                     </select>
                     
                     <select onChange={e => setData("dish_id", e.target.value)}>
+                    <option value="" selected hidden>{props.mymenus.dish.name}</option>
                     {props.dish.map((dish) => (
                             <option value={dish.id}>{dish.name}</option>
                         ))}
                     </select>
                     
                     <select onChange={e => setData("mainfood_id", e.target.value)}>
+                    <option value="" selected hidden>{props.mymenus.mainfood.name}</option>
                     {props.mainfood.map((mainfood) => (
                             <option value={mainfood.id}>{mainfood.name}</option>
                         ))}
@@ -188,14 +259,14 @@ const Create = (props) => {
                 <div className="box-border h-30 w-100 p-4 border-2 border-gray-900">
                     <h2>調理工程</h2>
                     <div>
-                    <textarea placeholder="調理工程" onChange={(e) => setData("way_of_making", e.target.value)}/>
+                    <textarea placeholder="調理工程" onChange={(e) => setData("way_of_making", e.target.value)}>{props.mymenus.way_of_making}</textarea>
                     </div>
                 </div>
                 
                 <div className="box-border h-30 w-100 p-4 border-2 border-gray-900">
                     <h2>コメント</h2>
                     <div>
-                    <textarea placeholder="コメント" onChange={(e) => setData("comment", e.target.value)}/>
+                    <textarea placeholder="コメント" onChange={(e) => setData("comment", e.target.value)}>{props.mymenus.comment}</textarea>
                     </div>
                 </div>
                 
@@ -204,5 +275,6 @@ const Create = (props) => {
         </form>
         </Authenticated>
         );
+    
 }
-export default Create;
+export default Edit;
