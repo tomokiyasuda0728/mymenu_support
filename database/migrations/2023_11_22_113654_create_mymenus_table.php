@@ -22,7 +22,7 @@ return new class extends Migration
         	$table->foreignId('main_id')->constrained('mains')->onDelete('cascade');
         	$table->text('way_of_making')->nullable();
 	        $table->string('comment', 200)->nullable();
-	        $table->date('date') ->nullable();
+	        $table->string('dates', 100) ->nullable();
 	        $table->timestamps();
             $table->softDeletes();
         });

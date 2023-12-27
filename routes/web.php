@@ -48,25 +48,34 @@ require __DIR__.'/auth.php';
 
 Route::group(["middleware" => ["auth"]], function() {
 
-   Route::get("/home", [EventController::class, "show"]);
+   Route::get("/home", [EventController::class, "show"])->name('home');
    
    
    Route::get("/post/{mymenu}", [MymenuController::class, "postindex"]);
    Route::get("/post", [MymenuController::class, "post"]);
    Route::get("/post/{mymenu}/edit", [MymenuController::class, "edit"]);
-   
    Route::post('/post/{mymenu}/edit', [MymenuController::class, "update"]);
-   
    Route::delete("/post/{mymenu}", [MymenuController::class, "delete"]);
-   
    Route::get("/create", [MymenuController::class, "create"]);
+   Route::post("/create", [MymenuController::class, "store"]);
    
-   Route::get("/autodetail", [MymenuController::class, "autodetail"]);
+   Route::get("/setmenupost/{setmenu}", [SetmenuController::class, "setmenuindex"]);
+   Route::get("/setmenupost", [SetmenuController::class, "setmenupost"]);
+   Route::get("/setmenupost/{setmenu}/edit", [SetmenuController::class, "setmenuedit"]);
+   Route::put('/setmenupost/{setmenu}/edit', [SetmenuController::class, "setmenuupdate"]);
+   Route::delete("/setmenupost/{setmenu}", [SetmenuController::class, "setmenudelete"]);
+   Route::get("/setmenuadd", [MymenuController::class, "setmenucreate"]);
+   Route::post("/setmenuadd", [SetmenuController::class, "setmenustore"]);
+   
+   Route::get("/automenuset", [MymenuController::class, "automenuset"]);
+   Route::post("/automenustore", [MymenuController::class, "automenustore"]);
+   Route::get("/datemenupost", [MymenuController::class, "datemenupost"]);
+   Route::put('/editdatestore', [MymenuController::class, "editdatestore"]);
    
    Route::get('/type/{type}', [TypeController::class,'post']);
    Route::get('/dish/{dish}', [DishController::class,'post']);
    Route::get('/mainfood/{mainfood}', [MainfoodController::class,'post']);
    
-   Route::post("/create", [MymenuController::class, "store"]);
+   Route::get("/addposts", [IngredientController::class, "addpost"]);
    Route::post("/addposts", [IngredientController::class, "addstore"]);
 });

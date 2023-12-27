@@ -12,11 +12,13 @@ function Post(props){
             post
           </h2> 
         }>
-            <div className="p-12 flex flex-row">
+            <div className="p-12">
                 <h1>MY献立登録一覧</h1>
                 <div className="flex flex-row my-5">
                     <Link href={`/create`}>新規登録</Link>
-                    <button className="setmenuadd">セットメニュー作成</button>
+                    <Link href={`/setmenupost`}>セットメニュー一覧</Link>
+                    <Link href={`/setmenuadd`}>セットメニュー作成</Link>
+                    <Link href={`/addposts`}>登録食材の追加</Link>
                 </div>
                  <div>
                     <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
