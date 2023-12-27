@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('auto_menu_sets', function (Blueprint $table) {
             $table->id();
-         	$table->date('start_date') ->nullable(false);
-        	$table->date('end_date') ->nullable(false);
+         	$table->string('start_date', 100) ->nullable(false);
+        	$table->string('end_date', 100) ->nullable(false);
         	$table->boolean('genre_conflict') ->nullable(false);
         	$table->integer('menu_space') ->nullable(false);
         	$table->foreignId('user_id')->constrained('users')->onDelete('cascade');

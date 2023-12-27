@@ -8,10 +8,24 @@ use App\Models\Ingredient;
 
 class IngredientController extends Controller
 {
+    
+    public function addpost(Ingredient $ingredient)
+    {
+        return Inertia::render("Mymenusupport/addingredient",["ingredients" => $ingredient->get()]);
+    }
+    
      public function addstore(Request $request, Ingredient $ingredient)
     {
         $input = $request->all();
-        $ingredient->name = $input["ingredient"];
-        $ingredient->save();
+        foreach ($input["postingredient"] as $newingredient){
+            $ingredient = new Ingredient();
+            $ingredient->name = $newingredient["name"];
+            $ingredient->save();
+        }
+        
+        return back("/addposts");
     }
+    
+    
+    
 }
