@@ -201,11 +201,7 @@ const Edit = (props) => {
     }
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            edit
-          </h2> 
-        }>
+       <div>
         <form onSubmit={handleSendPosts}>
         
             <div>
@@ -280,7 +276,7 @@ const Edit = (props) => {
             </div>
             </div>
         </form>
-        </Authenticated>
+        </div>
         );
     
 }

@@ -30,11 +30,7 @@ const Setmenuedit = (props) => {
     }
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            setmenuedit
-          </h2> 
-        }>
+        <div>
             <form onSubmit={handleSendPosts}>
                 <div>
                     <input type="hidden" name="_token" value={csrf_token.content}/>
@@ -81,8 +77,7 @@ const Setmenuedit = (props) => {
                     </div>
                 ))}
             </div>
-            
-        </Authenticated>
+        </div>
         );
 }
 export default Setmenuedit;

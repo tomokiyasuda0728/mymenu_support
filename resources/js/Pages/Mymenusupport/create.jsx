@@ -109,7 +109,6 @@ const Create = (props) => {
             return(
                 <div>
                     <div className="flex flex-row">
-                        <Link href={`/addposts`}>材料の種類を追加する</Link>
                         <input type="button" onClick={() => {
                             setData("ingredient_quantity",ingredients);
                             setIngredientedit(false);
@@ -144,29 +143,36 @@ const Create = (props) => {
     }
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            create
-          </h2> 
-        }>
+        <div>
         <form onSubmit={handleSendPosts}>
             <div>
                 <input type="hidden" name="_token" value={csrf_token.content}/>
                 <div className="p-12">
+                    <h1>MY 献立サポート</h1>
+                    <div>
+                        <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
+                        <div className="flex flex-row justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900" >
+                            <Link href={`/home`}>ホーム</Link>
+                            <Link href={`/post`}>MY献立一覧</Link>
+                            <Link href={`/addposts`}>登録食材の追加</Link>
+                        </div>
+                        <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
+                    </div>
                     <div className="flex flex-row">
                         <input type="text" placeholder="タイトル" onChange={(e) => setData("title", e.target.value)}/>
                         <span className="text-red-600">{props.errors.title}</span>
-                        <Link href={`/addposts`}>登録食材の追加</Link>
                         <div className="flex flex-row my-5">
                         <button type="submit" className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md">保存</button>
                         </div>
                     </div>
                     
+                    <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
                     <div>
                         <input type="file" className="image" onChange={(e) => setData("photograph", e.target.files[0])}/>
                     </div>
+                    <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
                     
-                    <div>
+                    <div className="box-border h-30 w-100 p-4 border-2 border-gray-900">
                       <h2>カテゴリー</h2>
                       <div className="flex flex-row my-5">
                         <select onChange={e => setData("type_id", e.target.value)}>
@@ -211,7 +217,7 @@ const Create = (props) => {
                 </div>
             </div>
         </form>
-        </Authenticated>
+        </div>
         );
 }
 export default Create;

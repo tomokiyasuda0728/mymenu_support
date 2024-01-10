@@ -13,11 +13,7 @@ function Home(props){
      const { events } = props
 
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            home
-          </h2> 
-        }>
+    <div>
         <div className="p-12">
             <h1>MY 献立サポート</h1>
             <div>
@@ -48,8 +44,7 @@ function Home(props){
                 <div className="information-area">
                 </div>            
             </div>
-        
-        </Authenticated>
+    </div>
     );
 }
 

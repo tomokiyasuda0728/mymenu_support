@@ -105,6 +105,17 @@ class MymenuController extends Controller
     return redirect("/post");
     }
     
+    public function bandatestore(Mymenu $mymenu, Request $request)
+    {
+            $input = $request->all();
+            $mymenu->id = $input["id"];
+            $mymenu->dates = $input["date"];
+            $mymenu->user_id = $input["user_id"];
+            $mymenu->save();
+        
+        return redirect("/post");
+    }
+    
     public function delete(Mymenu $mymenu){
         $mymenu->delete();
         return redirect("/post");
