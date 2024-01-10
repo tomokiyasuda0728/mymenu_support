@@ -23,7 +23,7 @@ class IngredientController extends Controller
             $ingredient->save();
         }
         
-        return back("/addposts");
+        return redirect("/addposts");
     }
     
     

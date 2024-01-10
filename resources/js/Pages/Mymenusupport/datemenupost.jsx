@@ -29,10 +29,12 @@ const datemenupost = (props) => {
     
     let datemymenupush = []; 
     
+    const bandate = new Date(2022, 1 - 1, 1);
+    
     const datepush = () =>{
         datemymenupush.splice(0, datemymenupush.length)
         data.fullmymenu.forEach(function($mymenu){
-            if($mymenu.dates != null){
+            if($mymenu.dates != null && new Date($mymenu.dates)-bandate != 0){
             datemymenupush.push({
                 date:new Date($mymenu.dates),
                 id:$mymenu.id,
@@ -160,18 +162,22 @@ const datemenupost = (props) => {
         </div>
         <div>
         { datemymenupush.map((passmenuone) => (
-            <div key={passmenuone.date}>
+            <div key={passmenuone.date} className = "p-5">
                 <h2>
                     {(passmenuone.date.toLocaleDateString())}
                 </h2>
-                <h1 className="box-border h-30 w-100 p-4 border-2 border-gray-900">
-                    {menulink(passmenuone.menutype, passmenuone.id, passmenuone.title)}
-                </h1>
-                <div>
-                    <img src={ passmenuone.photograph }/>
+                <div className="box-border h-30 w-6/12 p-4 border-2 border-gray-900">
+                    <h1>
+                        {menulink(passmenuone.menutype, passmenuone.id, passmenuone.title)}
+                    </h1>
+                    <div>
+                        <img src={ passmenuone.photograph } className = "w-10/12"/>
+                    </div>
                 </div>
                 <div>
-                <input type="button" onClick={() => {
+                <input type="button" 
+                className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                onClick={() => {
                     setMenuchange(passmenuone.date);
                     setOldmenuid(passmenuone.id);
                     setOldmenutype(passmenuone.menutype);
@@ -193,7 +199,9 @@ const datemenupost = (props) => {
             <div>
                 {console.log(data)}
                 <h1>変更する新しい献立を選択してください</h1>
-                <input type="button" onClick={() => {
+                <input type="button" 
+                className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                onClick={() => {
                     {datemodificationmenu()}
                     {datemodificationsetmenu()}
                     setMenuchange();
@@ -202,12 +210,14 @@ const datemenupost = (props) => {
                 />
                 <div className="p-12">
                 { props.mymenus.map((mymenu) => (
-                    <div key={mymenu.id}>
+                    <div key={mymenu.id} className="space-x-10 box-border h-30 w-8/12 p-4 border-2 border-gray-900">
                         <div className="flex flex-row my-5">
                             <h2>
                                {mymenu.title}
                             </h2>
-                            <input type="button" onClick={() => {
+                            <input type="button" 
+                            className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                            onClick={() => {
                                 setNewmenu(mymenu);
                                 setNewmenutype("mymenu");
                                 setConfirm(true);
@@ -215,18 +225,20 @@ const datemenupost = (props) => {
                                 value="この献立を選択する"
                             />
                         </div>
-                        <img src={ mymenu.photograph }/>
+                        <img src={ mymenu.photograph } className = "w-10/12"/>
                     </div>
                 ))}
                 </div>
                 <div className="p-12">
                 { props.setmenus.map((setmenu) => (
-                    <div key={setmenu.id}>
+                    <div key={setmenu.id} className="space-x-10 box-border h-30 w-8/12 p-4 border-2 border-gray-900">
                         <div className="flex flex-row my-5">
                             <h2>
                                {setmenu.title}
                             </h2>
-                            <input type="button" onClick={() => {
+                            <input type="button" 
+                            className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                            onClick={() => {
                                 setNewmenu(setmenu);
                                 setNewmenutype("setmenu");
                                 setConfirm(true);
@@ -247,7 +259,9 @@ const datemenupost = (props) => {
                 <div>
                 {updatealert()}
                 </div>
-                <input type="button" onClick={() => {
+                <input type="button" 
+                className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                onClick={() => {
                     {datemodificationmenu()}
                     {datemodificationsetmenu()}
                     setMenuchange();
@@ -255,7 +269,9 @@ const datemenupost = (props) => {
                     }}
                     value="確定"
                 />
-                <input type="button" onClick={() => {
+                <input type="button" 
+                className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                onClick={() => {
                     setConfirm(false);
                     }}
                     value="戻る"
@@ -267,16 +283,13 @@ const datemenupost = (props) => {
     }
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            datepost
-          </h2> 
-        }>
+        <div>
         
         <form onSubmit={handleSendPosts}>
             <div>
                 <h1>日割献立表</h1>
-                <div className="flex flex-row my-5">
+                <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
+                <div className="flex flex-row justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900" >
                     <Link href={`/home`}>ホーム</Link>
                     <Link href={`/automenuset`}>自動献立日割</Link>
                 </div>
@@ -289,7 +302,7 @@ const datemenupost = (props) => {
                 </div>
             </div>
         </form>
-        </Authenticated>
+        </div>
     );
 }
 export default datemenupost;

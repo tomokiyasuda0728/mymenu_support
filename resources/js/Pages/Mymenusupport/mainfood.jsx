@@ -8,16 +8,15 @@ function Mainfood(props){
   
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            post
-          </h2> 
-        }>
-            <div className="p-12 flex flex-row">
+        <div>
+            <div className="p-12">
                 <h1>MY献立登録一覧</h1>
-                <div className="flex flex-row my-5">
-                    <button className="menuadd">新規登録</button>
-                    <button className="setmenuadd">セットメニュー作成</button>
+                <div className="flex flex-row my-5 justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900">
+                    <Link href={`/create`}>新規登録</Link>
+                    <Link href={`/home`}>ホーム</Link>
+                    <Link href={`/setmenupost`}>セットメニュー一覧</Link>
+                    <Link href={`/setmenuadd`}>セットメニュー作成</Link>
+                    <Link href={`/addposts`}>登録食材の追加</Link>
                 </div>
                  <div>
                     <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
@@ -37,14 +36,14 @@ function Mainfood(props){
             </div>
              <div className="p-12">
                 { mainfoods.mymenus.map((mymenu) => (
-                <div key={mymenu.id}>
+                <div key={mymenu.id} className="space-x-10 box-border h-30 w-8/12 p-4 border-2 border-gray-900">
                     <h2>{mymenu.title}</h2>
-                    <img src={ mymenu.photograph }/>
+                    <img src={ mymenu.photograph } className = "w-10/12"/>
                 </div>
                 ))}
             </div>
             
-        </Authenticated>
+        </div>
         );
 }
 export default Mainfood;

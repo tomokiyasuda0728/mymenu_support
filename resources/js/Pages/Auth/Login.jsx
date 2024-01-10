@@ -92,6 +92,13 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
+            <div class="form-group row mt-2">
+                <div class="col-md-8 offset-md-4">
+                    <Link href={"/login/google"}
+                    className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >Google Login</Link>
+                </div>
+            </div>
         </GuestLayout>
     );
 }

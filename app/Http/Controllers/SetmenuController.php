@@ -68,4 +68,15 @@ class SetmenuController extends Controller
         $setmenu->delete();
         return redirect("/setmenupost");
     }
+    
+    public function setbandatestore(Setmenu $setmenu, Request $request)
+    {
+            $input = $request->all();
+            $setmenu->id = $input["id"];
+            $setmenu->dates = $input["date"];
+            $setmenu->user_id = $input["user_id"];
+            $setmenu->save();
+        
+        return redirect("/setmenupost");
+    }
 }

@@ -119,7 +119,7 @@ const Automenuset = (props) => {
             let menu = datemymenupush[randomindex];
             let datediff = diffcheck(menu.date, passcount);
             let datediffnum = parseInt(datediff / 1000 / 60 / 60 / 24, 10);
-            if(menuspace < datediffnum && menu.date != bandate && menu.stoper != true){
+            if(menuspace < datediffnum && new Date(menu.date) - bandate != 0 && menu.stoper != true){
                 passmenu.push({
                     menutype:menu.menutype,
                     id:menu.id,
@@ -256,7 +256,7 @@ const Automenuset = (props) => {
                 </div>
                 <div>
                 { passmenu.map((passmenuone, index) => (
-                    <div key={passmenuone.date}>
+                    <div key={passmenuone.date} className="space-x-10 box-border h-30 w-8/12 p-4 border-2 border-gray-900">
                         <h2>
                             {(passmenuone.date.toLocaleDateString())}
                         </h2>
@@ -273,14 +273,11 @@ const Automenuset = (props) => {
     };
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            autodetail
-          </h2> 
-        }>
+        <div>
             <div className="p-12">
                 <h1>自動献立登録</h1>
-                <div className="flex flex-row my-5">
+                <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
+                <div className="flex flex-row justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900" >
                     <Link href={`/home`}>ホーム</Link>
                     <Link href={`/datemenupost`}>日割献立表</Link>
                 </div>
@@ -289,7 +286,7 @@ const Automenuset = (props) => {
               {switchsetting()}  
             </div>
             
-        </Authenticated>
+        </div>
         );
 };
 export default Automenuset;

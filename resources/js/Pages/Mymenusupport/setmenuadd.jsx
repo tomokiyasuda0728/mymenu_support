@@ -30,19 +30,22 @@ function Setmenuadd(props){
     }
     
     return(
-        <Authenticated auth={props.auth} header={
-          <h2 className="font-semibold　text-xl text-gray-900 leading-tight">
-            setmenuadd
-          </h2> 
-        }>
-            <div className="p-12 flex flex-row">
+        <div>
+            <div className="p-12">
                 <h1>SETMENU登録</h1>
+                <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
+                <div className="flex flex-row justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900" >
+                    <Link href={`/home`}>ホーム</Link>
+                    <Link href={`/post`}>MY献立一覧</Link>
+                    <Link href={`/addposts`}>登録食材の追加</Link>
+                </div>
+                <hr class="h-px my-8 bg-gray-900 border-0 dark:bg-gray-900"></hr>
             </div>
             
             <form onSubmit={handleSendPosts}>
                 <div>
                     <input type="hidden" name="_token" value={csrf_token.content}/>
-                    <div className="p-12">
+                    <div className="p-6">
                         <div className="flex flex-row">
                             <input type="text" placeholder="タイトル" onChange={(e) => setData("title", e.target.value)}/>
                             <span className="text-red-600">{props.errors.title}</span>
@@ -55,23 +58,24 @@ function Setmenuadd(props){
                 </div>
             </form>
             
-            <div className="box-border h-30 w-100 p-4 border-2 border-gray-900">
-                    { data.mymenuList.map((menu,index) => (
-                                <div key={menu.id}>
-                                    <h2 className="box-border h-30 w-100 p-4 border-2 border-gray-900">
-                                    {menu.title}
-                                    <img src={ menu.photograph }/>
-                                    </h2>
-                                    <input type="button" value="削除"onClick={() => removemenu(index)}/>
-                                </div>
-                    ))}
+            <div className="box-border h-30 w-6/12 p-6 border-2 border-gray-900">
+            <h2>含めるメニュー</h2>
+                { data.mymenuList.map((menu,index) => (
+                    <div key={menu.id} className="box-border h-30 w-100 p-4 border-2 border-gray-900">
+                        <h2>
+                            {menu.title}
+                            <img src={ menu.photograph } className = "w-10/12"/>
+                        </h2>
+                        <input type="button" value="削除"onClick={() => removemenu(index)}/>
+                    </div>
+                ))}
             </div>
             
             
             
              <div className="p-12">
                 { mymenus.map((mymenu) => (
-                    <div key={mymenu.id}>
+                    <div key={mymenu.id} className="box-border h-30 w-6/12 p-4 border-2 border-gray-900">
                         <div>
                             <h2>
                                 { mymenu.title }
@@ -81,12 +85,11 @@ function Setmenuadd(props){
                              }     
                             }/>
                         </div>
-                        <img src={ mymenu.photograph }/>
+                        <img src={ mymenu.photograph } className = "w-10/12"/>
                     </div>
                 ))}
             </div>
-            
-        </Authenticated>
+        </div>
         );
 }
 export default Setmenuadd;

@@ -52,6 +52,7 @@ Route::group(["middleware" => ["auth"]], function() {
    
    
    Route::get("/post/{mymenu}", [MymenuController::class, "postindex"]);
+   Route::put('/bandatestore/{mymenu}', [MymenuController::class, "bandatestore"]);
    Route::get("/post", [MymenuController::class, "post"]);
    Route::get("/post/{mymenu}/edit", [MymenuController::class, "edit"]);
    Route::post('/post/{mymenu}/edit', [MymenuController::class, "update"]);
@@ -60,6 +61,7 @@ Route::group(["middleware" => ["auth"]], function() {
    Route::post("/create", [MymenuController::class, "store"]);
    
    Route::get("/setmenupost/{setmenu}", [SetmenuController::class, "setmenuindex"]);
+   Route::put('/setmenu/bandatestore/{setmenu}', [SetmenuController::class, "setbandatestore"]);
    Route::get("/setmenupost", [SetmenuController::class, "setmenupost"]);
    Route::get("/setmenupost/{setmenu}/edit", [SetmenuController::class, "setmenuedit"]);
    Route::put('/setmenupost/{setmenu}/edit', [SetmenuController::class, "setmenuupdate"]);
@@ -78,4 +80,7 @@ Route::group(["middleware" => ["auth"]], function() {
    
    Route::get("/addposts", [IngredientController::class, "addpost"]);
    Route::post("/addposts", [IngredientController::class, "addstore"]);
+   
+   Route::get('login/google', 'Auth\LoginController@redirectToGoogle');
+   Route::get('login/google/callback', 'Auth\LoginController@handleGoogleCallback');
 });

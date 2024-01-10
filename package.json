@@ -24,7 +24,9 @@
         "@fullcalendar/daygrid": "^6.1.9",
         "@fullcalendar/interaction": "^6.1.9",
         "@fullcalendar/react": "^6.1.9",
+        "@types/react-router-dom": "^5.3.3",
         "date-fns": "^2.30.0",
-        "fullcalendar": "^6.1.9"
+        "fullcalendar": "^6.1.9",
+        "react-router-dom": "^6.21.1"
     }
 }

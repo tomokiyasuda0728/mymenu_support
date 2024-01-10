@@ -47,6 +47,7 @@ const Addingredient = (props) => {
                     <input type="hidden" name="_token" value={csrf_token.content}/>
                     <h1>食材の追加</h1>
                     <div className="flex flex-row justify-center space-x-10 box-border h-30 w-100 p-4 border-2 border-gray-900" >
+                        <Link href={`/home`}>ホーム</Link>
                         <Link href={`/post`}>MY献立一覧</Link>
                         <Link href={`/create`}>献立の新規登録</Link>
                         <Link href={`/setmenupost`}>セットメニュー一覧</Link>
@@ -60,7 +61,9 @@ const Addingredient = (props) => {
                     <div className="flex flex-row my-5">
                         <input type="text" placeholder="リストにない献立をここに入力してください" 
                         value={data.name} onChange={(e) => setData("name",e.target.value)}/>
-                        <input type="button" value="登録" onClick={()=>{
+                        <input type="button" value="登録" 
+                        className="p-1 bg-purple-300 hover:bg-purple-400 rounded-md"
+                        onClick={()=>{
                              {addingredient(data.name)}
                              }     
                             }/>
