@@ -21,16 +21,14 @@
 
 ## 環境
 
-| 言語・フレームワーク  | バージョン |
-| --------------------- | ---------- |
-| TailwindCSS           |            |
-| React                 |            |
-| JavaScript            |            |
-| MySQL                 |            |
-| PHP                   |            |
-| AWS                   |            |
-
-## ディレクトリ構成
+| 言語・フレームワーク  | 
+| --------------------- | 
+| TailwindCSS           | 
+| React                 | 
+| JavaScript            | 
+| MySQL                 | 
+| PHP                   | 
+| AWS                   | 
 
 ## 使用方法
 
